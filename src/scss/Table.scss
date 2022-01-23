@@ -1,0 +1,22 @@
+.table {
+  width: 100%;
+}
+
+// .table > .tbody {
+//   & .row {}
+//   & .cell {
+
+//   }
+// }
+
+.cell {
+  &.-text-left {
+    text-align: left;
+  }
+  &.-text-center {
+    text-align: center;
+  }
+  &.-text-right {
+    text-align: right;
+  }
+}

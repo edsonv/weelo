@@ -1,0 +1,25 @@
+.search-form {
+  display: flex;
+  border-bottom: 1px solid #000000;
+  width: min-content;
+  margin-left: auto;
+}
+
+.search-form > .input-group {
+  & .label {
+    display: none;
+  }
+  & .input {
+    padding: 5px;
+    outline: none;
+    border: none;
+  }
+}
+
+.search-form > .button {
+  background: none;
+  border: none;
+  & .fas {
+    padding: 5px;
+  }
+}
