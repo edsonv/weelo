@@ -15,22 +15,22 @@ function App() {
         <Routes>
           <Route index element={ <Home /> } />
           <Route
-            path='/coin/:id'
+            path='/weelo/coin/:id'
             element={ <Coin /> }
           />
           <Route
-            path="/coin/markets/:id"
+            path="/weelo/coin/markets/:id"
             element={ <Markets /> }
           />
           <Route
-            path="/exchanges"
+            path="/weelo/exchanges"
             element={ <Exchanges /> } />
           <Route
-            path="/exchange/:id"
+            path="/weelo/exchange/:id"
             element={ <Exchange /> }
           />
           <Route
-            path="/globaldata"
+            path="/weelo/globaldata"
             element={ <GlobalData /> }
           />
         </Routes>
