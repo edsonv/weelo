@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import millify from 'millify';
 import Loading from './Loading';
 import { useGetTop100CoinsQuery } from '../services/CoinLoreApi';
 import '../scss/Table.scss';
@@ -8,6 +9,7 @@ import '../scss/SearchBar.scss';
 function CoinsList() {
   const { data, isFetching } = useGetTop100CoinsQuery();
   const [filteredData, setFilteredData] = useState();
+  const [order, setOrder] = useState('none');
 
   const handleChangeSearchTerm = (searchTerm) => {
     if (searchTerm.trim() !== "") {
@@ -18,6 +20,123 @@ function CoinsList() {
     } else {
       setFilteredData(data.data)
     }
+  }
+
+  const sortParseNumbers = (activeFilter) => {
+    let sorted;
+    let toFilter = filteredData ? filteredData : data.data;
+    switch (order) {
+      case "none":
+        sorted = toFilter.filter(e => e[activeFilter].length > 0).sort((a, b) => {
+          if (JSON.parse(a[activeFilter]) > JSON.parse(b[activeFilter])) {
+            return 1;
+          }
+          if (JSON.parse(a[activeFilter]) < JSON.parse(b[activeFilter])) {
+            return -1;
+          }
+          return 0;
+        })
+        setOrder('ascendent');
+        break;
+      case "ascendent":
+        sorted = toFilter.filter(e => e[activeFilter].length > 0).sort((a, b) => {
+          if (JSON.parse(a[activeFilter]) < JSON.parse(b[activeFilter])) {
+            return 1;
+          }
+          if (JSON.parse(a[activeFilter]) > JSON.parse(b[activeFilter])) {
+            return -1;
+          }
+          return 0;
+        })
+        setOrder('descendent');
+        break;
+      case "descendent":
+        sorted = filteredData
+        setOrder('none');
+        break;
+      default:
+        break;
+    }
+
+    setFilteredData(sorted);
+  }
+
+  const sortNumbers = (activeFilter) => {
+    let sorted;
+    let toFilter = filteredData ? filteredData : data.data;
+    switch (order) {
+      case "none":
+        sorted = toFilter.filter(e => e[activeFilter] >= 0).sort((a, b) => {
+          if (a[activeFilter] > b[activeFilter]) {
+            return 1;
+          }
+          if (a[activeFilter] < b[activeFilter]) {
+            return -1;
+          }
+          return 0;
+        })
+        setOrder('ascendent');
+        break;
+      case "ascendent":
+        sorted = toFilter.filter(e => e[activeFilter] >= 0).sort((a, b) => {
+          if (a[activeFilter] < b[activeFilter]) {
+            return 1;
+          }
+          if (a[activeFilter] > b[activeFilter]) {
+            return -1;
+          }
+          return 0;
+        })
+        setOrder('descendent');
+        break;
+      case "descendent":
+        sorted = filteredData
+        setOrder('none');
+        break;
+      default:
+        break;
+    }
+
+    setFilteredData(sorted);
+  }
+
+  const sortStrings = (activeFilter) => {
+    let sorted;
+    let toFilter = filteredData ? filteredData : data.data;
+    switch (order) {
+      case "none":
+        sorted = toFilter.filter(e => e[activeFilter].length > 0).sort((a, b) => {
+          if (a[activeFilter] > b[activeFilter]) {
+            return 1;
+          }
+          if (a[activeFilter] < b[activeFilter]) {
+            return -1;
+          }
+          return 0;
+        })
+        setOrder('ascendent');
+        break;
+      case "ascendent":
+        sorted = toFilter.filter(e => e[activeFilter].length > 0).sort((a, b) => {
+          if (a[activeFilter] < b[activeFilter]) {
+            return 1;
+          }
+          if (a[activeFilter] > b[activeFilter]) {
+            return -1;
+          }
+          return 0;
+        })
+        setOrder('descendent');
+        break;
+      case "descendent":
+        sorted = filteredData
+        setOrder('none');
+        break;
+      default:
+        break;
+    }
+
+    setFilteredData(sorted);
   }
 
   return isFetching ?
@@ -35,17 +154,17 @@ function CoinsList() {
         <table className='table'>
           <thead>
             <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Price (USD)</th>
-              <th>Change % 24H</th>
-              <th>Change % 1H</th>
-              <th>Change % 7d</th>
-              <th>Mk. Cap. (USD)</th>
-              <th>Vol. 24H</th>
-              <th>Coin Sply</th>
-              <th>Token Sply.</th>
-              <th>Mk. Sply.</th>
+              <th className='column-title'>Rank <button className='button -showOnMouseOver' onClick={ () => sortNumbers("rank") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Name <button className='button -showOnMouseOver' onClick={ () => sortStrings("symbol") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Price (USD) <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("price_usd") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>% 1H <button className='button -showOnMouseOver' onClick={ () => sortNumbers("percent_change_1h") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>% 24H <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("percent_change_24h") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>% 7d <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("percent_change_7d") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Mk. Cap. (USD) <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("market_cap_usd") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Vol. 24H <button className='button -showOnMouseOver' onClick={ () => sortNumbers("volume24") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Coin Sply. <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("csupply") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Token Sply. <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("csupply") }><i className="fas fa-sort"></i></button></th>
+              <th className='column-title'>Mk. Sply. <button className='button -showOnMouseOver' onClick={ () => sortParseNumbers("msupply") }><i className="fas fa-sort"></i></button></th>
             </tr>
           </thead>
           <tbody>
@@ -61,14 +180,15 @@ function CoinsList() {
                     </td>
                     <td className='cell -text-right'>
                       <Link to={ `/coin/markets/${coin.id}` }>
-                        { `$${Number.parseFloat(coin.price_usd).toLocaleString('en-US')}` }
+                        { `$${millify(coin.price_usd)}` }
                       </Link>
                     </td>
-                    <td className='cell -text-right'>{ `${coin.percent_change_24h} %` }</td>
-                    <td className='cell -text-right'>{ `${coin.percent_change_1h} %` }</td>
-                    <td className='cell -text-right'>{ `${coin.percent_change_7d} %` }</td>
-                    <td className='cell -text-right'>{ `$${Number.parseFloat(coin.market_cap_usd).toLocaleString('en-US')}` }</td>
-                    <td className='cell -text-right'>{ `$${Number.parseFloat(coin.volume24).toLocaleString('en-US')}` }</td>
+                    <td className='cell -text-right'>{ `${Number.parseFloat(coin.percent_change_1h)} %` }</td>
+                    <td className='cell -text-right'>{ `${Number.parseFloat(coin.percent_change_24h)} %` }</td>
+                    <td className='cell -text-right'>{ `${Number.parseFloat(coin.percent_change_7d)} %` }</td>
+                    <td className='cell -text-right'>{ `$${millify(coin.market_cap_usd)}` }</td>
+                    {/* <td className='cell -text-right'>{ `$${Number.parseFloat(coin.market_cap_usd).toLocaleString('en-US')}` }</td> */ }
+                    <td className='cell -text-right'>{ `$${millify(coin.volume24)}` }</td>
                     <td className='cell -text-right'>{ `${Number.parseFloat(coin.csupply).toLocaleString('en-US')}` }</td>
                     <td className='cell -text-right'>{ `${Number.parseFloat(coin.tsupply).toLocaleString('en-US')}` }</td>
                     <td className='cell -text-right'>{ coin.msupply !== "" ? `${Number.parseFloat(coin.msupply).toLocaleString('en-US')}` : "" }</td>

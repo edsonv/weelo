@@ -20,3 +20,9 @@
     text-align: right;
   }
 }
+
+.button {
+  &.-showOnMouseOver {
+    display: unset;
+  }
+}
