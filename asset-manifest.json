@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/weelo/static/css/main.6731f180.css",
+    "main.css": "/weelo/static/css/main.0d60db07.css",
     "main.js": "/weelo/static/js/main.4e121f29.js",
     "index.html": "/weelo/index.html",
-    "main.6731f180.css.map": "/weelo/static/css/main.6731f180.css.map",
+    "main.0d60db07.css.map": "/weelo/static/css/main.0d60db07.css.map",
     "main.4e121f29.js.map": "/weelo/static/js/main.4e121f29.js.map"
   },
   "entrypoints": [
-    "static/css/main.6731f180.css",
+    "static/css/main.0d60db07.css",
     "static/js/main.4e121f29.js"
   ]
 }
