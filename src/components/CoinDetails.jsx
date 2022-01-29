@@ -33,7 +33,7 @@ function CoinDetails() {
             <tr>
               <td className='cell -text-center'>{ data[0].rank }</td>
               <td className='cell -text-center'>
-                <Link to={ `/coin/${data[0].id}` }>
+                <Link to={ `/weelo/coin/${data[0].id}` }>
                   { `${data[0].name} ${data[0].symbol}` }
                 </Link>
               </td>

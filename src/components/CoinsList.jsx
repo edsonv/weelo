@@ -174,12 +174,12 @@ function CoinsList() {
                   <tr key={ coin.id } className='row'>
                     <td className='cell -text-center'>{ coin.rank }</td>
                     <td className='cell -text-center'>
-                      <Link to={ `/coin/${coin.id}` } title={ coin.name }>
+                      <Link to={ `/weelo/coin/${coin.id}` } title={ coin.name }>
                         { coin.symbol }
                       </Link>
                     </td>
                     <td className='cell -text-right'>
-                      <Link to={ `/coin/markets/${coin.id}` }>
+                      <Link to={ `/weelo/coin/markets/${coin.id}` }>
                         { `$${millify(coin.price_usd)}` }
                       </Link>
                     </td>

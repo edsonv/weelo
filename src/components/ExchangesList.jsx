@@ -48,7 +48,7 @@ const ExchangesList = () => {
               return (
                 <tr key={ exchange.id } className='row'>
                   <td className='cell -text-center'>
-                    <Link to={ `/exchange/${exchange.id}` }>{ exchange.name }</Link>
+                    <Link to={ `/weelo/exchange/${exchange.id}` }>{ exchange.name }</Link>
                   </td>
                   <td className='cell -text-center'>
                     <a href={ exchange.url }>{ exchange.url }</a>
