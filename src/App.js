@@ -13,7 +13,7 @@ function App() {
     <>
       <Layout>
         <Routes>
-          <Route index element={ <Home /> } />
+          <Route path="/weelo" element={ <Home /> } />
           <Route
             path='/weelo/coin/:id'
             element={ <Coin /> }
